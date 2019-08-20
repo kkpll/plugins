@@ -22,14 +22,12 @@ class Onigiri{
 
   public function __construct() {
     $this->define();
-    $this->styles();
-    $this->scripts();
     $this->actions();
     $this->filters();
   }
 
   private function define() {
-  
+    define( 'PLUGIN_DIR', plugins_url('onigiri') );
   }
 
   private function includes() {
@@ -37,7 +35,9 @@ class Onigiri{
   }
 
   private function actions() {
+    add_action( 'admin_menu', array( $this, 'register_admin_menu') );
     add_action( 'init', array( $this, 'register_post_type' ) );
+    add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
   }
 
   private function filters() {
@@ -53,8 +53,26 @@ class Onigiri{
       'publicly_queryable'  => false,
       'show_in_nav_menus'   => false,
       'show_ui'             => false,
-      'labels'              => array( 'name' => __('Ume','onigiri') )
+      'labels'              => array( 'name' => __( 'Ume', 'onigiri' ) )
     ));
+  }
+
+  public function register_admin_menu() {
+    $page = add_menu_page( __( 'Onigiri', 'onigiri' ), __( 'Onigiri', 'onigiri' ), 'manage_options', 'onigiri', array( $this, 'render_admin_page' ), PLUGIN_DIR.'/images/icon.png', 80 );
+    add_action( 'admin_print_scripts-'.$page, array( $this, 'register_admin_scripts' ) );
+    add_action( 'admin_print_scripts-'.$page, array( $this, 'register_admin_styles' ) );
+  }
+
+  public function load_plugin_textdomain() {
+    load_plugin_textdomain( 'onigir', PLUGIN_DIR.'/languages/' ) );
+  }
+
+  public function register_admin_scripts() {
+
+  }
+
+  public function register_admin_styles() {
+
   }
 
 
