@@ -64,7 +64,7 @@ class Onigiri{
   }
 
   public function load_plugin_textdomain() {
-    load_plugin_textdomain( 'onigir', PLUGIN_DIR.'/languages/' ) );
+    load_plugin_textdomain( 'onigiri', PLUGIN_DIR.'/languages/' ) );
   }
 
   public function register_admin_scripts() {
