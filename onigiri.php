@@ -79,3 +79,6 @@ class Onigiri{
 
 
 }
+
+
+add_action( 'plugins_loaded', array( 'Onigiri', 'init' ), 10 );
